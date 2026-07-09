@@ -1,0 +1,36 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Order {
+  id                String   @id @default(cuid())
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  stripeSessionId   String?  @unique
+  paymentStatus     String   @default("Pending")
+
+  customerName      String?
+  customerEmail     String?
+  customerPhone     String?
+
+  collectionName    String
+  material          String
+  style             String?
+  width             String?
+  size              String?
+  design            String?
+
+  memorialMaterials String?
+  minerals          String?
+  glow              String?
+  engraving         String?
+
+  totalPrice        Float
+  status            String   @default("Awaiting Memorial Materials")
+}
